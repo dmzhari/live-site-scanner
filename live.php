@@ -1,4 +1,6 @@
 <?php
+define('red',"\e[31m");
+define("green","\e[32m");
 error_reporting(0);
 	class Site_Scan{
 		public function cURL($web){
@@ -25,7 +27,7 @@ error_reporting(0);
 			$web = $this->cURL($site);
 			for ($i=0; $i < count($web); $i++) { 
 				if (preg_match("/html|head|body/", $web)) {
-					echo "[ Live ] > $site\n";
+					echo green."[ Live ] > $site\n";
 					$this->Save($site,"live.txt");
 				}
 				else if (preg_match("/domain has expired|Domain Expired|Under Construction/", $web)) {
@@ -33,7 +35,7 @@ error_reporting(0);
 					$this->Save($site,"expired.txt");
 				}
 				else {
-					echo "[ Not Live ] > $site\n";
+					echo red."[ Not Live ] > $site\n";
 				}
 			}	
 		}
